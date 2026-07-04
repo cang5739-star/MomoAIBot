@@ -103,9 +103,7 @@
 - (void)recordMsg:(NSString *)msg from:(NSString *)uid name:(NSString *)uname {
     if (!uid || !msg) return;
     if (!_convs[uid]) {
-        _convs[uid] = [NSMutableDictionary dictionaryWithDictionary:@{
-            @"name": uname ?: @"?", @"cnt": @0, @"hist": [NSMutableArray array], @"trig": @NO
-        }];
+        _convs[uid] = [NSMutableDictionary dictionaryWithDictionary:@{@"name": uname ?: @"?", @"cnt": @0, @"hist": [NSMutableArray array], @"trig": @NO}];
     }
     NSMutableDictionary *c = _convs[uid];
     c[@"name"] = uname ?: c[@"name"];
@@ -135,7 +133,6 @@
     NSInteger mn = [self delMin], mx = [self delMax];
     return (mx > mn) ? mn + arc4random_uniform((uint32_t)(mx-mn+1)) : mn;
 }
-
 - (NSString *)fallback {
     NSArray *fb = @[@"哈哈，真的吗？😄",@"嗯嗯，说得对～",@"我也是这么想的！",
         @"有趣有趣～",@"原来如此！",@"哈哈你太有意思了",@"对呀对呀～",
@@ -151,7 +148,6 @@
 - (void)genReply:(NSString *)uid name:(NSString *)uname cb:(void(^)(NSString *, NSDictionary *))cb {
     if (!cb) return;
     if (![self enabled]) { cb(nil, nil); return; }
-
     NSString *key = [self apiKey];
     if (!key.length) { cb([self fallback], nil); return; }
 
@@ -167,12 +163,9 @@
     for (NSDictionary *m in hist) [msgs addObject:m];
 
     NSDictionary *payload = @{
-        @"model": [self model],
-        @"messages": msgs,
-        @"temperature": @([self temp]),
-        @"max_tokens": @([self maxTok])
+        @"model": [self model], @"messages": msgs,
+        @"temperature": @([self temp]), @"max_tokens": @([self maxTok])
     };
-
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:payload options:0 error:nil];
     if (!jsonData) { cb([self fallback], nil); return; }
 
@@ -185,7 +178,6 @@
     req.timeoutInterval = 30;
 
     NSArray *recentCopy = [_recent copy];
-
     [[[NSURLSession sharedSession] dataTaskWithRequest:req completionHandler:^(NSData *d, NSURLResponse *r, NSError *e) {
         if (e || !d) { dispatch_async(dispatch_get_main_queue(), ^{ cb([self fallback], nil); }); return; }
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:d options:0 error:nil];
@@ -193,7 +185,6 @@
         if (!reply) { dispatch_async(dispatch_get_main_queue(), ^{ cb([self fallback], nil); }); return; }
         reply = [reply stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
-        // 去重
         for (NSString *r in recentCopy) {
             if ([r containsString:reply] || [reply containsString:r]) { reply = [reply stringByAppendingString:@" 😊"]; break; }
         }
@@ -235,8 +226,18 @@
 %end
 
 
+// ── 辅助方法声明（让编译器和 IDE 知道这些方法存在）──
+@interface UITableView (MomoAIHelper)
+- (UITextView *)findInputInView:(UIView *)v;
+- (UITextField *)findFieldInView:(UIView *)v;
+- (void)trigSend:(UIView *)v;
+- (void)toast:(NSString *)msg;
+@end
+
+
 // ── 聊天界面消息拦截 ─────────────────────────────────
 %hook UITableView
+
 - (void)insertRowsAtIndexPaths:(NSArray *)ips withRowAnimation:(UITableViewRowAnimation)anim {
     %orig;
     UIViewController *vc = (id)self;
@@ -256,7 +257,6 @@
             if ([v isKindOfClass:[UITextView class]]) { txt = ((UITextView *)v).text; if (txt.length) break; }
         }
         if (!txt.length) continue;
-        // 粗略判断是否自己的消息（右侧消息）
         BOOL isOwn = cell.contentView.frame.origin.x > self.frame.size.width * 0.4;
         if (isOwn) continue;
 
@@ -276,37 +276,41 @@
                     NSString *cap = act[@"caption"] ?: reply;
                     if (tv) { tv.text = cap; [self trigSend:vc.view]; }
                     else if (tf) { tf.text = cap; [self trigSend:vc.view]; }
-                    else { [UIPasteboard generalPasteboard].string = cap; [self toast:@"📋 AI 回复已复制"]; }
+                    else { [UIPasteboard generalPasteboard].string = cap; [self toast:@"AI 回复已复制"]; }
                 } else {
                     if (tv) { tv.text = reply; [[NSNotificationCenter defaultCenter] postNotificationName:UITextViewTextDidChangeNotification object:tv]; [self trigSend:vc.view]; }
                     else if (tf) { tf.text = reply; [[NSNotificationCenter defaultCenter] postNotificationName:UITextFieldTextDidChangeNotification object:tf]; [self trigSend:vc.view]; }
-                    else { [UIPasteboard generalPasteboard].string = reply; [self toast:@"📋 AI 回复已复制"]; }
+                    else { [UIPasteboard generalPasteboard].string = reply; [self toast:@"AI 回复已复制"]; }
                 }
             });
         }];
     }
 }
 
+%new
 - (UITextView *)findInputInView:(UIView *)v {
     if ([v isKindOfClass:[UITextView class]] && ((UITextView *)v).isEditable) return (UITextView *)v;
     for (UIView *sv in v.subviews) { UITextView *f = [self findInputInView:sv]; if (f) return f; }
     return nil;
 }
+%new
 - (UITextField *)findFieldInView:(UIView *)v {
     if ([v isKindOfClass:[UITextField class]]) return (UITextField *)v;
     for (UIView *sv in v.subviews) { UITextField *f = [self findFieldInView:sv]; if (f) return f; }
     return nil;
 }
+%new
 - (void)trigSend:(UIView *)v {
     if ([v isKindOfClass:[UIButton class]]) {
         NSString *t = [(UIButton *)v titleForState:UIControlStateNormal] ?: @"";
-        if ([t containsString:@"发送"] || [t containsString:@"Send"] || [t containsString:@"➤"]) {
+        if ([t containsString:@"发送"] || [t containsString:@"Send"] || [t containsString:@">"]) {
             [(UIButton *)v sendActionsForControlEvents:UIControlEventTouchUpInside];
             return;
         }
     }
     for (UIView *sv in v.subviews) [self trigSend:sv];
 }
+%new
 - (void)toast:(NSString *)msg {
     UIWindow *w = [UIApplication sharedApplication].keyWindow;
     UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(20, 100, w.frame.size.width-40, 44)];
@@ -351,9 +355,8 @@
 %end
 
 %ctor {
-    NSLog(@"[MomoAI] ════════════════════════════════");
-    NSLog(@"[MomoAI]  Momo AI Bot v1.0.0 已加载");
-    NSLog(@"[MomoAI]  陌陌 AI 智能自动回复");
-    NSLog(@"[MomoAI] ════════════════════════════════");
+    NSLog(@"[MomoAI] =========================");
+    NSLog(@"[MomoAI] Momo AI Bot v1.0.0 loaded");
+    NSLog(@"[MomoAI] =========================");
     [MomoAI shared];
 }
