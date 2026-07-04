@@ -1,7 +1,7 @@
 Package: com.momo.aibot
 Name: MomoAIBot
 Version: 1.0.0
-Architecture: iphoneos-arm
+Architecture: iphoneos-arm64
 Description: Momo AI auto-reply tweak with OpenAI integration
 Depends: mobilesubstrate, preferenceloader, com.rpetrich.rocketbootstrap (>= 1.0.2) | firmware (>= 13.0)
 Priority: optional
