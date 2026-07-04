@@ -1,4 +1,4 @@
-﻿// == Momo AI Bot - Frida Hook Script ==
+// == Momo AI Bot - Frida Hook Script ==
 // 适用于 Windows 用户，无需 Theos/越狱插件编译环境
 // 使用方式: frida -U com.immomo.momo -l momo-ai-frida.js
 

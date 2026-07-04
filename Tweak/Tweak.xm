@@ -1,12 +1,12 @@
-﻿/* ══════════════════════════════════════════════════════════
- * MomoAIBot.xm — 陌陌 AI 智能回复 Tweak
- * ══════════════════════════════════════════════════════════ */
+/* 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲
+ * MomoAIBot.xm 鈥?闄岄檶 AI 鏅鸿兘鍥炲 Tweak
+ * 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲 */
 
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
 #import <notify.h>
 
-// ── 配置管理器 ─────────────────────────────────────────
+// 鈹€鈹€ 閰嶇疆绠＄悊鍣?鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€
 @interface MomoPrefs : NSObject
 + (id)val:(NSString *)key;
 + (void)setVal:(id)v key:(NSString *)key;
@@ -32,7 +32,7 @@
 @end
 
 
-// ── AI 引擎 ─────────────────────────────────────────────
+// 鈹€鈹€ AI 寮曟搸 鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€
 @interface MomoAI : NSObject
 @property (class, readonly) MomoAI *shared;
 @property (strong) NSMutableDictionary *convs;
@@ -91,7 +91,7 @@
 - (NSString *)model { return [MomoPrefs val:@"model"] ?: @"gpt-4o-mini"; }
 - (CGFloat)temp { return [[MomoPrefs val:@"temperature"] floatValue] ?: 0.8; }
 - (NSInteger)maxTok { return [[MomoPrefs val:@"max_tokens"] integerValue] ?: 200; }
-- (NSString *)sysPrompt { return [MomoPrefs val:@"system_prompt"] ?: @"你是一个在陌陌社交App上与人聊天的用户。请自然地回复对方的消息，语气亲切。"; }
+- (NSString *)sysPrompt { return [MomoPrefs val:@"system_prompt"] ?: @"浣犳槸涓€涓湪闄岄檶绀句氦App涓婁笌浜鸿亰澶╃殑鐢ㄦ埛銆傝鑷劧鍦板洖澶嶅鏂圭殑娑堟伅锛岃姘斾翰鍒囥€?; }
 - (BOOL)threshEn { return [[MomoPrefs val:@"threshold_enabled"] boolValue]; }
 - (NSInteger)threshCnt { return [[MomoPrefs val:@"threshold_count"] integerValue] ?: 10; }
 - (NSString *)threshAct { return [MomoPrefs val:@"threshold_action"] ?: @"auto_image"; }
@@ -134,10 +134,10 @@
     return (mx > mn) ? mn + arc4random_uniform((uint32_t)(mx-mn+1)) : mn;
 }
 - (NSString *)fallback {
-    NSArray *fb = @[@"哈哈，真的吗？😄",@"嗯嗯，说得对～",@"我也是这么想的！",
-        @"有趣有趣～",@"原来如此！",@"哈哈你太有意思了",@"对呀对呀～",
-        @"是这样的！",@"哇真的假的？",@"笑死😂",@"有道理！",@"确实如此～",
-        @"好滴好滴",@"嗯嗯我在听～"];
+    NSArray *fb = @[@"鍝堝搱锛岀湡鐨勫悧锛燄煒?,@"鍡棷锛岃寰楀锝?,@"鎴戜篃鏄繖涔堟兂鐨勶紒",
+        @"鏈夎叮鏈夎叮锝?,@"鍘熸潵濡傛锛?,@"鍝堝搱浣犲お鏈夋剰鎬濅簡",@"瀵瑰憖瀵瑰憖锝?,
+        @"鏄繖鏍风殑锛?,@"鍝囩湡鐨勫亣鐨勶紵",@"绗戞馃槀",@"鏈夐亾鐞嗭紒",@"纭疄濡傛锝?,
+        @"濂芥淮濂芥淮",@"鍡棷鎴戝湪鍚綖"];
     return fb[arc4random_uniform((uint32_t)fb.count)];
 }
 - (NSString *)randImg {
@@ -156,7 +156,7 @@
 
     NSArray *hist = [self history:uid limit:20];
     NSString *sp = [self sysPrompt];
-    if (shouldTrig) sp = [sp stringByAppendingString:@"\n提示：和这位用户聊得比较投缘了，可以自然地引导加微信或交换联系方式。"];
+    if (shouldTrig) sp = [sp stringByAppendingString:@"\n鎻愮ず锛氬拰杩欎綅鐢ㄦ埛鑱婂緱姣旇緝鎶曠紭浜嗭紝鍙互鑷劧鍦板紩瀵煎姞寰俊鎴栦氦鎹㈣仈绯绘柟寮忋€?];
 
     NSMutableArray *msgs = [NSMutableArray array];
     [msgs addObject:@{@"role":@"system", @"content":sp}];
@@ -186,7 +186,7 @@
         reply = [reply stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
         for (NSString *r in recentCopy) {
-            if ([r containsString:reply] || [reply containsString:r]) { reply = [reply stringByAppendingString:@" 😊"]; break; }
+            if ([r containsString:reply] || [reply containsString:r]) { reply = [reply stringByAppendingString:@" 馃槉"]; break; }
         }
 
         NSDictionary *specialAct = nil;
@@ -206,27 +206,27 @@
         [self->_recent addObject:reply ?: @""];
         if (self->_recent.count > 20) [self->_recent removeObjectAtIndex:0];
 
-        NSLog(@"[MomoAI] 回复: %@", [reply substringToIndex:MIN(30,reply.length)]);
+        NSLog(@"[MomoAI] 鍥炲: %@", [reply substringToIndex:MIN(30,reply.length)]);
         dispatch_async(dispatch_get_main_queue(), ^{ cb(reply, specialAct); });
     }] resume];
 }
 @end
 
 
-// ══════════════════════════════════════════════════════════
-//  🎣 Logos Hooks
-// ══════════════════════════════════════════════════════════
+// 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲
+//  馃帲 Logos Hooks
+// 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲
 
 %hook UIApplication
 - (void)applicationDidFinishLaunching:(id)sender {
     %orig;
     [MomoAI shared];
-    NSLog(@"[MomoAI] Momo AI Bot 已加载 v1.0.0");
+    NSLog(@"[MomoAI] Momo AI Bot 宸插姞杞?v1.0.0");
 }
 %end
 
 
-// ── 辅助方法声明（让编译器和 IDE 知道这些方法存在）──
+// 鈹€鈹€ 杈呭姪鏂规硶澹版槑锛堣缂栬瘧鍣ㄥ拰 IDE 鐭ラ亾杩欎簺鏂规硶瀛樺湪锛夆攢鈹€
 @interface UITableView (MomoAIHelper)
 - (UITextView *)findInputInView:(UIView *)v;
 - (UITextField *)findFieldInView:(UIView *)v;
@@ -235,7 +235,7 @@
 @end
 
 
-// ── 聊天界面消息拦截 ─────────────────────────────────
+// 鈹€鈹€ 鑱婂ぉ鐣岄潰娑堟伅鎷︽埅 鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€
 %hook UITableView
 
 - (void)insertRowsAtIndexPaths:(NSArray *)ips withRowAnimation:(UITableViewRowAnimation)anim {
@@ -260,7 +260,7 @@
         BOOL isOwn = cell.contentView.frame.origin.x > self.frame.size.width * 0.4;
         if (isOwn) continue;
 
-        NSString *name = vc.navigationItem.title ?: vc.title ?: @"聊天对象";
+        NSString *name = vc.navigationItem.title ?: vc.title ?: @"鑱婂ぉ瀵硅薄";
         NSString *uid = [NSString stringWithFormat:@"chat_%p", vc];
         MomoAI *ai = [MomoAI shared];
         if ([ai blocked:uid]) continue;
@@ -276,11 +276,11 @@
                     NSString *cap = act[@"caption"] ?: reply;
                     if (tv) { tv.text = cap; [self trigSend:vc.view]; }
                     else if (tf) { tf.text = cap; [self trigSend:vc.view]; }
-                    else { [UIPasteboard generalPasteboard].string = cap; [self toast:@"AI 回复已复制"]; }
+                    else { [UIPasteboard generalPasteboard].string = cap; [self toast:@"AI 鍥炲宸插鍒?]; }
                 } else {
                     if (tv) { tv.text = reply; [[NSNotificationCenter defaultCenter] postNotificationName:UITextViewTextDidChangeNotification object:tv]; [self trigSend:vc.view]; }
                     else if (tf) { tf.text = reply; [[NSNotificationCenter defaultCenter] postNotificationName:UITextFieldTextDidChangeNotification object:tf]; [self trigSend:vc.view]; }
-                    else { [UIPasteboard generalPasteboard].string = reply; [self toast:@"AI 回复已复制"]; }
+                    else { [UIPasteboard generalPasteboard].string = reply; [self toast:@"AI 鍥炲宸插鍒?]; }
                 }
             });
         }];
@@ -303,7 +303,7 @@
 - (void)trigSend:(UIView *)v {
     if ([v isKindOfClass:[UIButton class]]) {
         NSString *t = [(UIButton *)v titleForState:UIControlStateNormal] ?: @"";
-        if ([t containsString:@"发送"] || [t containsString:@"Send"] || [t containsString:@">"]) {
+        if ([t containsString:@"鍙戦€?] || [t containsString:@"Send"] || [t containsString:@">"]) {
             [(UIButton *)v sendActionsForControlEvents:UIControlEventTouchUpInside];
             return;
         }
@@ -330,7 +330,7 @@
 %end
 
 
-// ── 通知拦截 ─────────────────────────────────────────
+// 鈹€鈹€ 閫氱煡鎷︽埅 鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€
 %hook NSNotificationCenter
 - (void)postNotification:(NSNotification *)n {
     %orig;
@@ -344,7 +344,7 @@
     if (!txt) txt = n.userInfo[@"content"] ?: n.userInfo[@"text"] ?: n.userInfo[@"message"];
     if (!txt.length) return;
     uid = n.userInfo[@"senderId"] ?: n.userInfo[@"from"] ?: n.userInfo[@"userId"] ?: [NSString stringWithFormat:@"notif_%p", n];
-    uname = n.userInfo[@"senderName"] ?: n.userInfo[@"fromName"] ?: n.userInfo[@"nick"] ?: @"聊天对象";
+    uname = n.userInfo[@"senderName"] ?: n.userInfo[@"fromName"] ?: n.userInfo[@"nick"] ?: @"鑱婂ぉ瀵硅薄";
     MomoAI *ai = [MomoAI shared];
     if (![ai enabled] || [ai blocked:uid]) return;
     [ai recordMsg:txt from:uid name:uname];
