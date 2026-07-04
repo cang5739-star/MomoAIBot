@@ -28,10 +28,13 @@ jobs:
           tar -xJf /tmp/iPhoneOS13.7.sdk.tar.xz -C $HOME/theos/sdks
           echo "SDK installed at $HOME/theos/sdks/iPhoneOS13.7.sdk"
 
+      - name: Fix maintainer script permissions
+        run: |
+          chmod 755 layout/DEBIAN/postinst layout/DEBIAN/prerm
+
       - name: Build Tweak
         run: |
           export THEOS=$HOME/theos
-          export THEOS_SDK=15.0
           make clean
           make package
         working-directory: ${{ github.workspace }}
