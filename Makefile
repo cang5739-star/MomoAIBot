@@ -16,7 +16,8 @@ BUNDLE_NAME = MomoAIPrefs
 MomoAIPrefs_FILES = Prefs/MomoAIPrefs.mm
 MomoAIPrefs_CFLAGS = -fobjc-arc
 MomoAIPrefs_FRAMEWORKS = UIKit Foundation
-MomoAIPrefs_PRIVATE_FRAMEWORKS = Preferences
+MomoAIPrefs_PRIVATE_FRAMEWORKS = 
+MomoAIPrefs_LDFLAGS = -undefined dynamic_lookup
 MomoAIPrefs_INSTALL_PATH = /Library/PreferenceBundles
 
 include $(THEOS_MAKE_PATH)/bundle.mk
