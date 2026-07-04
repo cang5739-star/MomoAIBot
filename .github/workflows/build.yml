@@ -21,9 +21,17 @@ jobs:
         run: |
           brew install ldid
 
+      - name: Download iOS 15.0 SDK
+        run: |
+          curl -L -o /tmp/iPhoneOS15.0.sdk.tar.xz https://github.com/theos/sdks/releases/download/master/iPhoneOS15.0.sdk.tar.xz
+          mkdir -p $HOME/theos/sdks
+          tar -xJf /tmp/iPhoneOS15.0.sdk.tar.xz -C $HOME/theos/sdks
+          echo "SDK installed at $HOME/theos/sdks/iPhoneOS15.0.sdk"
+
       - name: Build Tweak
         run: |
           export THEOS=$HOME/theos
+          export THEOS_SDK=15.0
           make clean
           make package
         working-directory: ${{ github.workspace }}
