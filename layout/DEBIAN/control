@@ -1,8 +1,8 @@
-﻿Package: com.momo.aibot
+Package: com.momo.aibot
 Name: MomoAIBot
 Version: 1.0.0
 Architecture: iphoneos-arm
-Description: 陌陌 AI 智能自动回复插件 — 基于 OpenAI 的智能回复、按对话句数触发图片/自定义话术、可视化设置面板
+Description: Momo AI auto-reply tweak with OpenAI integration
 Depends: mobilesubstrate, preferenceloader, com.rpetrich.rocketbootstrap (>= 1.0.2) | firmware (>= 13.0)
 Priority: optional
 Section: Tweaks
