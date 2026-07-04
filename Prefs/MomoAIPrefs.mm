@@ -144,7 +144,7 @@
                                                              cell:PSButtonCell
                                                              edit:nil];
         spec.buttonAction = @selector(showConversation:);
-        spec.userInfo = @{@"uid": uid};
+        spec.properties = @{@"uid": uid};
         [specs addObject:spec];
     }
 
@@ -152,7 +152,7 @@
 }
 
 - (void)showConversation:(PSSpecifier *)spec {
-    NSString *uid = spec.userInfo[@"uid"];
+    NSString *uid = spec.properties[@"uid"];
     if (!uid) return;
 
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:SETTINGS_PATH];
