@@ -1,0 +1,37 @@
+﻿name: Build MomoAIBot Tweak
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Theos
+        run: |
+          git clone --recursive https://github.com/theos/theos.git $HOME/theos
+          echo "THEOS=$HOME/theos" >> $GITHUB_ENV
+
+      - name: Install ldid
+        run: |
+          curl -L -o /usr/local/bin/ldid https://raw.githubusercontent.com/theos/ldid/master/ldid
+          chmod +x /usr/local/bin/ldid
+
+      - name: Build Tweak
+        run: |
+          export THEOS=$HOME/theos
+          make clean
+          make package
+        working-directory: ${{ github.workspace }}
+
+      - name: Upload .deb Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: momo-aibot-deb
+          path: packages/*.deb
+          if-no-files-found: error

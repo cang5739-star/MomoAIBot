@@ -1,0 +1,360 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>items</key>
+    <array>
+        <!-- ═══ 第一组：基本开关 ═══ -->
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+            <key>label</key>
+            <string>基本设置</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSSwitchCell</string>
+            <key>default</key>
+            <true/>
+            <key>defaults</key>
+            <string>com.momo.aibot</string>
+            <key>key</key>
+            <string>enabled</string>
+            <key>label</key>
+            <string>启用自动回复</string>
+            <key>PostNotification</key>
+            <string>com.momo.aibot.settingsChanged</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSSliderCell</string>
+            <key>default</key>
+            <real>0.8</real>
+            <key>defaults</key>
+            <string>com.momo.aibot</string>
+            <key>key</key>
+            <string>temperature</string>
+            <key>label</key>
+            <string>AI 回复温度</string>
+            <key>min</key>
+            <real>0</real>
+            <key>max</key>
+            <real>2</real>
+            <key>isSegmented</key>
+            <false/>
+            <key>PostNotification</key>
+            <string>com.momo.aibot.settingsChanged</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSEditTextCell</string>
+            <key>default</key>
+            <string>200</string>
+            <key>defaults</key>
+            <string>com.momo.aibot</string>
+            <key>key</key>
+            <string>max_tokens</string>
+            <key>label</key>
+            <string>最大 Token</string>
+            <key>isNumeric</key>
+            <true/>
+            <key>PostNotification</key>
+            <string>com.momo.aibot.settingsChanged</string>
+        </dict>
+
+        <!-- ═══ 第二组：API 配置 ═══ -->
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+            <key>label</key>
+            <string>AI API 配置</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSEditTextCell</string>
+            <key>default</key>
+            <string></string>
+            <key>defaults</key>
+            <string>com.momo.aibot</string>
+            <key>key</key>
+            <string>api_key</string>
+            <key>label</key>
+            <string>API Key</string>
+            <key>isSecure</key>
+            <true/>
+            <key>PostNotification</key>
+            <string>com.momo.aibot.settingsChanged</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSEditTextCell</string>
+            <key>default</key>
+            <string>https://api.openai.com/v1</string>
+            <key>defaults</key>
+            <string>com.momo.aibot</string>
+            <key>key</key>
+            <string>api_base</string>
+            <key>label</key>
+            <string>API Base URL</string>
+            <key>PostNotification</key>
+            <string>com.momo.aibot.settingsChanged</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSEditTextCell</string>
+            <key>default</key>
+            <string>gpt-4o-mini</string>
+            <key>defaults</key>
+            <string>com.momo.aibot</string>
+            <key>key</key>
+            <string>model</string>
+            <key>label</key>
+            <string>模型</string>
+            <key>PostNotification</key>
+            <string>com.momo.aibot.settingsChanged</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSEditTextCell</string>
+            <key>default</key>
+            <string>你是一个在陌陌社交App上与人聊天的用户。请自然地回复对方的消息，语气亲切。保持对话自然流畅，每次回复1-3句话。不要暴露你是AI。</string>
+            <key>defaults</key>
+            <string>com.momo.aibot</string>
+            <key>key</key>
+            <string>system_prompt</string>
+            <key>label</key>
+            <string>系统提示词</string>
+            <key>isMultiline</key>
+            <true/>
+            <key>PostNotification</key>
+            <string>com.momo.aibot.settingsChanged</string>
+        </dict>
+
+        <!-- ═══ 第三组：触发规则 ═══ -->
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+            <key>label</key>
+            <string>触发规则设置（同一人聊天达到指定句数后）</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSSwitchCell</string>
+            <key>default</key>
+            <true/>
+            <key>defaults</key>
+            <string>com.momo.aibot</string>
+            <key>key</key>
+            <string>threshold_enabled</string>
+            <key>label</key>
+            <string>启用触发规则</string>
+            <key>PostNotification</key>
+            <string>com.momo.aibot.settingsChanged</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSSliderCell</string>
+            <key>default</key>
+            <integer>10</integer>
+            <key>defaults</key>
+            <string>com.momo.aibot</string>
+            <key>key</key>
+            <string>threshold_count</string>
+            <key>label</key>
+            <string>触发句数</string>
+            <key>min</key>
+            <integer>3</integer>
+            <key>max</key>
+            <integer>50</integer>
+            <key>showValue</key>
+            <true/>
+            <key>PostNotification</key>
+            <string>com.momo.aibot.settingsChanged</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSLinkListCell</string>
+            <key>default</key>
+            <string>auto_image</string>
+            <key>defaults</key>
+            <string>com.momo.aibot</string>
+            <key>key</key>
+            <string>threshold_action</string>
+            <key>label</key>
+            <string>触发后动作</string>
+            <key>detail</key>
+            <string>PSListItemsController</string>
+            <key>validValues</key>
+            <array>
+                <string>auto_image</string>
+                <string>custom_text</string>
+                <string>auto_image_first</string>
+            </array>
+            <key>validTitles</key>
+            <array>
+                <string>🖼️ 发送图片（自动回复配图）</string>
+                <string>💬 发送自定义话术</string>
+                <string>🖼️💬 先发图片再发话术</string>
+            </array>
+            <key>PostNotification</key>
+            <string>com.momo.aibot.settingsChanged</string>
+        </dict>
+
+        <!-- ═══ 第四组：回复延迟 ═══ -->
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+            <key>label</key>
+            <string>回复延迟（模拟真人回复间隔）</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSSliderCell</string>
+            <key>default</key>
+            <integer>2</integer>
+            <key>defaults</key>
+            <string>com.momo.aibot</string>
+            <key>key</key>
+            <string>delay_min</string>
+            <key>label</key>
+            <string>最短延迟（秒）</string>
+            <key>min</key>
+            <integer>1</integer>
+            <key>max</key>
+            <integer>30</integer>
+            <key>showValue</key>
+            <true/>
+            <key>PostNotification</key>
+            <string>com.momo.aibot.settingsChanged</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSSliderCell</string>
+            <key>default</key>
+            <integer>8</integer>
+            <key>defaults</key>
+            <string>com.momo.aibot</string>
+            <key>key</key>
+            <string>delay_max</string>
+            <key>label</key>
+            <string>最长延迟（秒）</string>
+            <key>min</key>
+            <integer>1</integer>
+            <key>max</key>
+            <integer>60</integer>
+            <key>showValue</key>
+            <true/>
+            <key>PostNotification</key>
+            <string>com.momo.aibot.settingsChanged</string>
+        </dict>
+
+        <!-- ═══ 第五组：自定义话术 ═══ -->
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+            <key>label</key>
+            <string>自定义话术（达到触发条件时随机发送，每行一条）</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSEditTextCell</string>
+            <key>default</key>
+            <string>哈哈，聊了这么久，加个微信吧～
+你挺有意思的，认识一下？
+时间不早了，改天再聊～
+给你看看我刚拍的照片😊
+有空一起出来玩呀～</string>
+            <key>defaults</key>
+            <string>com.momo.aibot</string>
+            <key>key</key>
+            <string>custom_texts</string>
+            <key>label</key>
+            <string>话术列表（换行分隔）</string>
+            <key>isMultiline</key>
+            <true/>
+            <key>PostNotification</key>
+            <string>com.momo.aibot.settingsChanged</string>
+        </dict>
+
+        <!-- ═══ 第六组：操作按钮 ═══ -->
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+            <key>label</key>
+            <string>操作</string>
+        </dict>
+        <dict>
+            <key>action</key>
+            <string>resetAllConversations</string>
+            <key>cell</key>
+            <string>PSButtonCell</string>
+            <key>label</key>
+            <string>🔄 重置所有对话记录</string>
+            <key>isDestructive</key>
+            <true/>
+        </dict>
+        <dict>
+            <key>action</key>
+            <string>exportConfig</string>
+            <key>cell</key>
+            <string>PSButtonCell</string>
+            <key>label</key>
+            <string>📋 导出配置到剪贴板</string>
+        </dict>
+        <dict>
+            <key>action</key>
+            <string>respring</string>
+            <key>cell</key>
+            <string>PSButtonCell</string>
+            <key>label</key>
+            <string>🔄 重启 SpringBoard</string>
+        </dict>
+
+        <!-- ═══ 第七组：关于 ═══ -->
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+            <key>label</key>
+            <string>关于</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSTitleValueCell</string>
+            <key>label</key>
+            <string>版本</string>
+            <key>default</key>
+            <string>1.0.0</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSTitleValueCell</string>
+            <key>label</key>
+            <string>兼容 iOS</string>
+            <key>default</key>
+            <string>13.0+</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSLinkCell</string>
+            <key>label</key>
+            <string>💬 对话管理</string>
+            <key>detail</key>
+            <string>MomoAIConversationsController</string>
+            <key>isController</key>
+            <true/>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSLinkCell</string>
+            <key>label</key>
+            <string>ℹ️ 关于</string>
+            <key>detail</key>
+            <string>MomoAIAboutController</string>
+            <key>isController</key>
+            <true/>
+        </dict>
+    </array>
+    <key>title</key>
+    <string>Momo AI Bot</string>
+</dict>
+</plist>

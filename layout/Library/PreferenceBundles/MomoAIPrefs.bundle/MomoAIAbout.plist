@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>items</key>
+    <array>
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+            <key>label</key>
+            <string>Momo AI Bot</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSTitleValueCell</string>
+            <key>label</key>
+            <string>版本</string>
+            <key>default</key>
+            <string>1.0.0</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSTitleValueCell</string>
+            <key>label</key>
+            <string>作者</key>
+            <key>default</key>
+            <string>ReiPenFlow</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+            <key>label</key>
+            <string>功能说明</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSStaticTextCell</string>
+            <key>label</key>
+            <string>基于 OpenAI API 的陌陌智能自动回复插件。
+- AI 智能回复，支持自定义提示词
+- 对话计数，触发规则
+- 达到指定句数后自动发送图片或自定义话术
+- 模拟真人回复延迟
+- 对话记忆与管理</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+            <key>label</key>
+            <string>使用提示</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSStaticTextCell</string>
+            <key>label</key>
+            <string>1. 在"基本设置"中填写 OpenAI API Key
+2. 设置触发规则（句数 + 动作）
+3. 添加自定义话术（可选）
+4. 上传图片到 /var/mobile/Media/DCIM/MomoAI/（可选）</string>
+        </dict>
+    </array>
+    <key>title</key>
+    <string>关于</string>
+</dict>
+</plist>

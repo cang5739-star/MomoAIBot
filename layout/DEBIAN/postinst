@@ -1,0 +1,76 @@
+﻿#!/bin/bash
+
+# MomoAIBot Post-Install Script
+# 安装后重新加载配置并注销 SpringBoard
+
+# 创建默认配置文件（如果不存在）
+CONF_DIR="/var/mobile/Library/Preferences"
+CONF_FILE="/com.momo.aibot.plist"
+
+if [ ! -f "" ]; then
+    cat > "" << 'PLISTEOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>enabled</key>
+    <true/>
+    <key>api_key</key>
+    <string></string>
+    <key>api_base</key>
+    <string>https://api.openai.com/v1</string>
+    <key>model</key>
+    <string>gpt-4o-mini</string>
+    <key>temperature</key>
+    <real>0.8</real>
+    <key>max_tokens</key>
+    <integer>200</integer>
+    <key>system_prompt</key>
+    <string>你是一个在陌陌社交App上与人聊天的用户。请自然地回复对方的消息，语气亲切。保持对话自然流畅，每次回复1-3句话。不要暴露你是AI。</string>
+    <key>threshold_enabled</key>
+    <true/>
+    <key>threshold_count</key>
+    <integer>10</integer>
+    <key>threshold_action</key>
+    <string>auto_image</string>
+    <key>custom_texts</key>
+    <array>
+        <string>哈哈，聊了这么久，加个微信吧～</string>
+        <string>你挺有意思的，认识一下？</string>
+        <string>时间不早了，改天再聊～</string>
+        <string>给你看看我刚拍的照片😊</string>
+    </array>
+    <key>auto_reply_mode</key>
+    <string>intelligent</string>
+    <key>delay_min</key>
+    <integer>2</integer>
+    <key>delay_max</key>
+    <integer>8</integer>
+    <key>blocked_users</key>
+    <array/>
+    <key>conversation_memory</key>
+    <dict/>
+</dict>
+</plist>
+PLISTEOF
+    plutil -convert binary1 "" 2>/dev/null || true
+fi
+
+# 设置权限
+chmod 644 "" 2>/dev/null || true
+
+# 注册 daemon（如果存在）
+if [ -f "/usr/libexec/momo-ai-daemon" ]; then
+    chmod +x /usr/libexec/momo-ai-daemon
+    chown root:wheel /usr/libexec/momo-ai-daemon
+    chmod 755 /usr/libexec/momo-ai-daemon
+fi
+
+# 重启 SpringBoard 以加载 tweak
+if [ -f "/usr/bin/sbreload" ]; then
+    /usr/bin/sbreload
+elif [ -f "/usr/bin/killall" ]; then
+    /usr/bin/killall -9 SpringBoard 2>/dev/null || true
+fi
+
+exit 0

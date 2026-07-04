@@ -1,0 +1,13 @@
+﻿#!/bin/bash
+# MomoAIBot Pre-Remove Script
+# 移除前清理
+
+# 停止 daemon 如果存在
+if [ -f "/usr/libexec/momo-ai-daemon" ]; then
+    launchctl unload /Library/LaunchDaemons/com.momo.aibot.daemon.plist 2>/dev/null || true
+fi
+
+# 清理缓存
+rm -f /var/mobile/Library/Preferences/com.momo.aibot.plist 2>/dev/null || true
+
+exit 0

@@ -1,0 +1,15 @@
+﻿# Theos
+packages/
+.theos/
+*.deb
+*.dylib
+
+# IDE
+.vs/
+.vscode/
+*.user
+*.suo
+
+# OS
+.DS_Store
+Thumbs.db
