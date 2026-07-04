@@ -46,7 +46,7 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"重启" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *act) {
         notify_post(NOTIFY_NAME);
         sleep(1);
-        system("killall -9 SpringBoard");
+        notify_post(NOTIFY_NAME); exit(0);
     }]];
     [self presentViewController:alert animated:YES completion:nil];
 }
@@ -60,7 +60,7 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *act) {
         NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:SETTINGS_PATH];
         if (dict) {
-            dict[@\"conversation_memory\"] = @{};
+            dict[@"conversation_memory"] = @{};
             [dict writeToFile:SETTINGS_PATH atomically:YES];
         }
         notify_post(NOTIFY_NAME);
@@ -115,7 +115,7 @@
 - (NSArray *)conversationSpecifiers {
     NSMutableArray *specs = [NSMutableArray array];
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:SETTINGS_PATH];
-    NSDictionary *convs = dict[@\"conversation_memory\"];
+    NSDictionary *convs = dict[@"conversation_memory"];
 
     if (convs.count == 0) {
         PSSpecifier *spec = [PSSpecifier preferenceSpecifierNamed:@"暂无对话记录"
@@ -131,9 +131,9 @@
 
     for (NSString *uid in [convs allKeys]) {
         NSDictionary *c = convs[uid];
-        NSInteger cnt = [c[@\"cnt\"] integerValue];
-        BOOL trig = [c[@\"trig\"] boolValue];
-        NSString *name = c[@\"name\"] ?: uid;
+        NSInteger cnt = [c[@"cnt"] integerValue];
+        BOOL trig = [c[@"trig"] boolValue];
+        NSString *name = c[@"name"] ?: uid;
         NSString *label = [NSString stringWithFormat:@"%@ (%ld句)%@", name, (long)cnt, trig ? @" 🔔" : @""];
 
         PSSpecifier *spec = [PSSpecifier preferenceSpecifierNamed:label
@@ -156,25 +156,25 @@
     if (!uid) return;
 
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:SETTINGS_PATH];
-    NSDictionary *conv = dict[@\"conversation_memory\"][uid];
+    NSDictionary *conv = dict[@"conversation_memory"][uid];
     if (!conv) return;
 
-    NSArray *hist = conv[@\"hist\"];
+    NSArray *hist = conv[@"hist"];
     NSMutableString *text = [NSMutableString string];
     for (NSDictionary *msg in hist) {
-        NSString *role = [msg[@\"role\"] isEqualToString:@\"user\"] ? @"👤" : @"🤖";
-        [text appendFormat:@"%@ %@\n", role, msg[@\"content\"]];
+        NSString *role = [msg[@"role"] isEqualToString:@"user"] ? @"👤" : @"🤖";
+        [text appendFormat:@"%@ %@\n", role, msg[@"content"]];
     }
 
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:conv[@\"name\"] ?: uid
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:conv[@"name"] ?: uid
                                                                    message:text.length ? text : @"(空)"
                                                             preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"关闭" style:UIAlertActionStyleDefault handler:nil]];
     [alert addAction:[UIAlertAction actionWithTitle:@"重置此对话" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *act) {
         NSMutableDictionary *mDict = [NSMutableDictionary dictionaryWithContentsOfFile:SETTINGS_PATH];
-        NSMutableDictionary *mConvs = [mDict[@\"conversation_memory\"] mutableCopy];
+        NSMutableDictionary *mConvs = [mDict[@"conversation_memory"] mutableCopy];
         [mConvs removeObjectForKey:uid];
-        mDict[@\"conversation_memory\"] = mConvs;
+        mDict[@"conversation_memory"] = mConvs;
         [mDict writeToFile:SETTINGS_PATH atomically:YES];
         notify_post(NOTIFY_NAME);
         [self reloadSpecifiers];
