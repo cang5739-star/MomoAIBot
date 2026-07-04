@@ -17,7 +17,8 @@ MomoAIPrefs_FILES = Prefs/MomoAIPrefs.mm
 MomoAIPrefs_CFLAGS = -fobjc-arc
 MomoAIPrefs_FRAMEWORKS = UIKit Foundation
 MomoAIPrefs_PRIVATE_FRAMEWORKS = Preferences
-MomoAIPrefs_LDFLAGS = -F$(THEOS)/sdks/iPhoneOS16.5.sdk/System/Library/PrivateFrameworks
+# Use Xcode SDK path
+MomoAIPrefs_LDFLAGS = -F$(shell xcrun --sdk iphoneos --show-sdk-path)/System/Library/PrivateFrameworks
 MomoAIPrefs_INSTALL_PATH = /Library/PreferenceBundles
 
 include $(THEOS_MAKE_PATH)/bundle.mk
