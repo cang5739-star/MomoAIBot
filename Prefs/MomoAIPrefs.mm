@@ -144,7 +144,7 @@
                                                              cell:PSButtonCell
                                                              edit:nil];
         spec.buttonAction = @selector(showConversation:);
-        spec.properties = @{@"uid": uid};
+        spec.properties = [@{@"uid": uid} mutableCopy];
         [specs addObject:spec];
     }
 
