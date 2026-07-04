@@ -1,4 +1,4 @@
-﻿/* ══════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════════
  * MomoAIBot.xm — 陌陌 AI 智能回复 Tweak
  * ══════════════════════════════════════════════════════════ */
 
@@ -235,12 +235,7 @@
 
 
 // ── 辅助方法声明（让编译器和 IDE 知道这些方法存在）──
-@interface UITableView (MomoAIHelper)
-- (UITextView *)findInputInView:(UIView *)v;
-- (UITextField *)findFieldInView:(UIView *)v;
-- (void)trigSend:(UIView *)v;
-- (void)toast:(NSString *)msg;
-@end
+
 
 
 // ── 聊天界面消息拦截 ─────────────────────────────────
