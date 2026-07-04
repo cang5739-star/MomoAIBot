@@ -21,12 +21,12 @@ jobs:
         run: |
           brew install ldid
 
-      - name: Download iOS 16.5 SDK
+      - name: Download iOS 13.7 SDK
         run: |
-          curl -L -o /tmp/iPhoneOS16.5.sdk.tar.xz https://github.com/theos/sdks/releases/download/master-146e41f/iPhoneOS16.5.sdk.tar.xz
+          curl -L -o /tmp/iPhoneOS13.7.sdk.tar.xz https://github.com/theos/sdks/releases/download/master-146e41f/iPhoneOS13.7.sdk.tar.xz
           mkdir -p $HOME/theos/sdks
-          tar -xJf /tmp/iPhoneOS16.5.sdk.tar.xz -C $HOME/theos/sdks
-          echo "SDK installed at $HOME/theos/sdks/iPhoneOS16.5.sdk"
+          tar -xJf /tmp/iPhoneOS13.7.sdk.tar.xz -C $HOME/theos/sdks
+          echo "SDK installed at $HOME/theos/sdks/iPhoneOS13.7.sdk"
 
       - name: Build Tweak
         run: |
